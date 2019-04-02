@@ -23,7 +23,7 @@ namespace Apos.Content {
             string redImageOutput = createOutputPath(buildPath, redImageFile);
 
             ContentString cs = new ContentString();
-            ContentTexture ct = new ContentTexture();
+            ContentTexture2D ct = new ContentTexture2D();
 
             Settings<Texture2D> settingsTexture = new Settings<Texture2D>();
             Settings<string> settingsString = new Settings<string>();

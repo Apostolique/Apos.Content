@@ -22,7 +22,7 @@ namespace Apos.Content {
         protected override void LoadContent() {
             s = new SpriteBatch(GraphicsDevice);
 
-            ContentTexture ct = new ContentTexture();
+            ContentTexture2D ct = new ContentTexture2D();
             ContentString cs = new ContentString();
 
             Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);

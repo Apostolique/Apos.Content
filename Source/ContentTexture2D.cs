@@ -5,9 +5,12 @@ using Optional;
 using System.Drawing;
 
 namespace Apos.Content {
-    public class ContentTexture : Content<Texture2D> {
+    /// <summary>
+    /// Builds and reads Texture2D content.
+    /// </summary>
+    public class ContentTexture2D : Content<Texture2D> {
         /// <summary>
-        /// Builds a string content.
+        /// Builds a Texture2D content.
         /// </summary>
         public override void Build(Stream input, Stream output, Settings<Texture2D> settings) {
             using (Bitmap bitmap = new Bitmap(input))
@@ -26,7 +29,7 @@ namespace Apos.Content {
             }
         }
         /// <summary>
-        /// Reads a string content.
+        /// Reads a Texture2D content.
         /// </summary>
         /// <returns>
         /// Returns something only if the content can be parsed.
