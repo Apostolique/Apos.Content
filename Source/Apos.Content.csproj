@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PackageId>Apos.Content</PackageId>
+    <Title>Apos.Content</Title>
+    <Version>0.1.0</Version>
+    <Description>Content builder library for MonoGame.</Description>
+    <Authors>Jean-David Moisan</Authors>
+    <Company>Vyne Enterprise Inc.</Company>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageTags>content;builder;monogame</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/Apostolique/Apos.Content/master/Images/Icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Apostolique/Apos.Content</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Apostolique/Apos.Content</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Optional" Version="4.0.0" />
+  </ItemGroup>
+</Project>
