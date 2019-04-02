@@ -6,7 +6,7 @@ namespace Apos.Content {
     /// <summary>
     /// A string content is simply a file with text.
     /// </summary>
-    public class StringContent : Content<string> {
+    public class ContentString : Content<string> {
         /// <summary>
         /// Builds a string content.
         /// </summary>

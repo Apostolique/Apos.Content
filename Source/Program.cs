@@ -13,7 +13,7 @@ namespace Apos.Content {
             string inputPath = contentPath + helloFile + ".txt";
             string outputPath = buildPath + helloFile + ".xnb";
 
-            StringContent sc = new StringContent();
+            ContentString sc = new ContentString();
 
             // Build a string content.
             sc.Build(inputPath, outputPath);
