@@ -1,16 +1,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Apos.Content {
+    /// <summary>
+    /// Provides useful objects to read and initialize content correctly.
+    /// </summary>
     public class Context {
-        public Context(Target target, GraphicsDevice graphicsDevice) {
-            Target = target;
+        public Context(GraphicsDevice graphicsDevice) {
             GraphicsDevice = graphicsDevice;
         }
 
-        public Target Target {
-            get;
-            set;
-        }
         public GraphicsDevice GraphicsDevice {
             get;
             set;

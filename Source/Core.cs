@@ -25,8 +25,7 @@ namespace Apos.Content {
             ContentTexture2D ct = new ContentTexture2D();
             ContentString cs = new ContentString();
 
-            Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);
-            Context context = new Context(target, GraphicsDevice);
+            Context context = new Context(GraphicsDevice);
 
             string buildPath = "bin/";
             string redImageFile = "RedImage";

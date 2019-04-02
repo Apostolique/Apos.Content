@@ -22,11 +22,13 @@ namespace Apos.Content {
             string helloOutput = createOutputPath(buildPath, helloFile);
             string redImageOutput = createOutputPath(buildPath, redImageFile);
 
+            Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);
+
             ContentString cs = new ContentString();
             ContentTexture2D ct = new ContentTexture2D();
 
-            Settings<Texture2D> settingsTexture = new Settings<Texture2D>();
-            Settings<string> settingsString = new Settings<string>();
+            Settings<Texture2D> settingsTexture = new Settings<Texture2D>(target);
+            Settings<string> settingsString = new Settings<string>(target);
 
             buildContent<string>(cs, helloInput, helloOutput, settingsString);
             buildContent<Texture2D>(ct, redImageInput, redImageOutput, settingsTexture);
