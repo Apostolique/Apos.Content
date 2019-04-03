@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <PackageId>Apos.Content</PackageId>
     <Title>Apos.Content</Title>
     <Version>0.1.0</Version>
@@ -20,8 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Optional" Version="4.0.0" />
-    <!--<PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />-->
-    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7"/>
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
   </ItemGroup>
 </Project>

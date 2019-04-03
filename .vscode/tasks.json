@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Source/Apos.Content.csproj"
+                "${workspaceFolder}/Example/GameExample/GameExample.csproj"
             ],
             "problemMatcher": "$tsc"
         }

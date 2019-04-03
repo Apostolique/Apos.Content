@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Optional;
+using Apos.Content;
 
-namespace Apos.Content {
+namespace GameExample {
     public class Core : Game {
         public Core() {
             _graphics = new GraphicsDeviceManager(this);

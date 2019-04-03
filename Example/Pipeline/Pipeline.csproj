@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Title>Pipeline</Title>
+    <Version>0.1.0</Version>
+    <Description>Pipeline used to build the game's content.</Description>
+    <Authors>Jean-David Moisan</Authors>
+    <Company>Vyne Enterprise Inc.</Company>
+    <Copyright>Copyright 2019</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Optional" Version="4.0.0" />
+    <!--<PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7"/>-->
+    <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <ProjectReference Include="../../Source/Apos.Content.csproj" />
+  </ItemGroup>
+</Project>

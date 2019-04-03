@@ -2,8 +2,9 @@
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Optional;
+using Apos.Content;
 
-namespace Apos.Content {
+namespace Pipeline {
     class Program {
         [STAThread]
         static void Main(string[] args) {
@@ -32,9 +33,6 @@ namespace Apos.Content {
 
             buildContent<string>(cs, helloInput, helloOutput, settingsString);
             buildContent<Texture2D>(ct, redImageInput, redImageOutput, settingsTexture);
-
-            using (var game = new Core())
-                game.Run();
         }
         private static void buildContent<T>(Content<T> c, string inputPath, string outputPath, Settings<T> settings) {
             c.Build(inputPath, outputPath, settings);
