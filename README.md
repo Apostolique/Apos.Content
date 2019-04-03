@@ -6,7 +6,7 @@ This is an attempt at writing a new content pipeline for MonoGame.
 
 ## Goals
 * Make it easier to develop custom content builders.
-* Allow developpers to build custom content into more than just binary files.
+* Allow developers to build custom content into more than just binary files.
 * Make it easier for libraries made for MonoGame to provide their own content.
 * Easier to integrate in a running game.
   * Build content at runtime.
