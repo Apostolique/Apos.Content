@@ -2,25 +2,11 @@
 using System.IO;
 using Optional;
 
-namespace Apos.Content {
+namespace Apos.Content.Read {
     /// <summary>
     /// Base class for building and reading content.
     /// </summary>
-    public class Content<T> {
-        /// <summary>
-        /// Implicitly creates FileStreams on the paths to build the content.
-        /// The paths can be relative or absolute.
-        /// </summary>
-        public virtual void Build(string inputPath, string outputPath, Settings<T> settings) {
-            using (FileStream input = new FileStream(inputPath, FileMode.Open))
-            using (FileStream output = new FileStream(outputPath, FileMode.Create)) {
-                Build(input, output, settings);
-            }
-        }
-        /// <summary>
-        /// Builds content.
-        /// </summary>
-        public virtual void Build(Stream input, Stream output, Settings<T> settings) { }
+    public class Reader<T> {
         /// <summary>
         /// Implicitly creates a FileStream on the given path.
         /// The path can be relative or absolute.

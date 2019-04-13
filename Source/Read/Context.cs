@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Apos.Content {
+namespace Apos.Content.Read {
     /// <summary>
     /// Provides useful objects to read and initialize content correctly.
     /// </summary>

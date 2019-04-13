@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Optional;
-using Apos.Content;
+using Apos.Content.Read;
 
 namespace GameExample {
     public class Core : Game {
@@ -23,8 +23,8 @@ namespace GameExample {
         protected override void LoadContent() {
             s = new SpriteBatch(GraphicsDevice);
 
-            ContentTexture2D ct = new ContentTexture2D();
-            ContentString cs = new ContentString();
+            ReadTexture2D ct = new ReadTexture2D();
+            ReadString cs = new ReadString();
 
             Context context = new Context(GraphicsDevice);
 
