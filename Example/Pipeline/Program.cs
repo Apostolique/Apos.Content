@@ -8,8 +8,8 @@ namespace Pipeline {
     class Program {
         [STAThread]
         static void Main(string[] args) {
-            string contentPath = "Content/";
-            string buildPath = "bin/";
+            string contentPath = "Content";
+            string buildPath = "bin";
 
             string textExtension = ".txt";
             string pngExtension = ".png";
@@ -38,10 +38,10 @@ namespace Pipeline {
             c.Build(inputPath, outputPath, settings);
         }
         private static string createInputPath(string contentPath, string fileName, string extension) {
-            return contentPath + fileName + extension;
+            return Path.Combine(contentPath, fileName + extension);
         }
         private static string createOutputPath(string buildPath, string fileName) {
-            return buildPath + fileName + ".xnb";
+            return Path.Combine(buildPath, fileName + ".xnb");
         }
     }
 }

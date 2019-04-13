@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Optional;
 using Apos.Content.Read;
+using System.IO;
 
 namespace GameExample {
     public class Core : Game {
@@ -28,12 +29,12 @@ namespace GameExample {
 
             Context context = new Context(GraphicsDevice);
 
-            string buildPath = "bin/";
+            string buildPath = "bin";
             string redImageFile = "RedImage";
             string helloFile = "Hello";
 
-            string redImagePath = buildPath + redImageFile + ".xnb";
-            string helloPath = buildPath + helloFile + ".xnb";
+            string redImagePath = Path.Combine(buildPath, redImageFile + ".xnb");
+            string helloPath = Path.Combine(buildPath, helloFile + ".xnb");
 
             // Read texture content.
             Option<Texture2D> texture = ct.Read(redImagePath, context);
