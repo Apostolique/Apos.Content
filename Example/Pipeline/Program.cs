@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Optional;
-using Apos.Content.Build;
+using Apos.Content.Compile;
 
 namespace Pipeline {
     class Program {
@@ -25,8 +25,8 @@ namespace Pipeline {
 
             Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);
 
-            BuildString cs = new BuildString();
-            BuildTexture2D ct = new BuildTexture2D();
+            CompileString cs = new CompileString();
+            CompileTexture2D ct = new CompileTexture2D();
 
             Settings<Texture2D> settingsTexture = new Settings<Texture2D>(target);
             Settings<string> settingsString = new Settings<string>(target);
@@ -34,7 +34,7 @@ namespace Pipeline {
             buildContent<string>(cs, helloInput, helloOutput, settingsString);
             buildContent<Texture2D>(ct, redImageInput, redImageOutput, settingsTexture);
         }
-        private static void buildContent<T>(Builder<T> c, string inputPath, string outputPath, Settings<T> settings) {
+        private static void buildContent<T>(Compiler<T> c, string inputPath, string outputPath, Settings<T> settings) {
             c.Build(inputPath, outputPath, settings);
         }
         private static string createInputPath(string contentPath, string fileName, string extension) {
