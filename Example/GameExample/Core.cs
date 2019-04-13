@@ -33,8 +33,8 @@ namespace GameExample {
             string redImageFile = "RedImage";
             string helloFile = "Hello";
 
-            string redImagePath = Path.Combine(buildPath, redImageFile + ".xnb");
-            string helloPath = Path.Combine(buildPath, helloFile + ".xnb");
+            string redImagePath = Path.Combine(buildPath, Path.ChangeExtension(redImageFile, ".xnb"));
+            string helloPath = Path.Combine(buildPath, Path.ChangeExtension(helloFile, ".xnb"));
 
             // Read texture content.
             Option<Texture2D> texture = ct.Read(redImagePath, context);

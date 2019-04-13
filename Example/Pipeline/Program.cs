@@ -11,14 +11,11 @@ namespace Pipeline {
             string contentPath = "Content";
             string buildPath = "bin";
 
-            string textExtension = ".txt";
-            string pngExtension = ".png";
+            string helloFile = "Hello.txt";
+            string redImageFile = "RedImage.png";
 
-            string helloFile = "Hello";
-            string redImageFile = "RedImage";
-
-            string helloInput = createInputPath(contentPath, helloFile, textExtension);
-            string redImageInput = createInputPath(contentPath, redImageFile, pngExtension);
+            string helloInput = createInputPath(contentPath, helloFile);
+            string redImageInput = createInputPath(contentPath, redImageFile);
 
             string helloOutput = createOutputPath(buildPath, helloFile);
             string redImageOutput = createOutputPath(buildPath, redImageFile);
@@ -37,11 +34,11 @@ namespace Pipeline {
         private static void buildContent<T>(Compiler<T> c, string inputPath, string outputPath, Settings<T> settings) {
             c.Build(inputPath, outputPath, settings);
         }
-        private static string createInputPath(string contentPath, string fileName, string extension) {
-            return Path.Combine(contentPath, fileName + extension);
+        private static string createInputPath(string contentPath, string fileName) {
+            return Path.Combine(contentPath, fileName);
         }
         private static string createOutputPath(string buildPath, string fileName) {
-            return Path.Combine(buildPath, fileName + ".xnb");
+            return Path.Combine(buildPath, Path.ChangeExtension(fileName, ".xnb"));
         }
     }
 }
