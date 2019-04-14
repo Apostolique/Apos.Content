@@ -9,7 +9,6 @@ using Optional;
 namespace GameExample {
     public static class Assets {
         public static void LoadAssets(Context context, Action done) {
-            Thread.Sleep(2000);
             LoadTextures(context);
             done();
         }
