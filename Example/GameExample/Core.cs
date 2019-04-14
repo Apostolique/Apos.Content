@@ -6,6 +6,7 @@ using Optional;
 using Apos.Content.Read;
 using System.IO;
 using System.Threading;
+using System.Reflection;
 
 namespace GameExample {
     public class Core : Game {
@@ -23,10 +24,18 @@ namespace GameExample {
 
             base.Initialize();
         }
+        private string AssemblyDirectory {
+            get {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
         protected override void LoadContent() {
             s = new SpriteBatch(GraphicsDevice);
 
-            _context = new Context("bin", GraphicsDevice);
+            _context = new Context(Path.Combine(AssemblyDirectory, "Content"), GraphicsDevice);
             Assets.LoadLoadingAssets(_context);
             _loading = new Loading();
             _update = _loading.Update;

@@ -16,6 +16,6 @@
     <ProjectReference Include="../../Source/Apos.Content.csproj" />
   </ItemGroup>
   <Target Name="Build Content" BeforeTargets="Build">
-    <Exec Command="dotnet run -p ../Pipeline" />
+    <Exec Command="dotnet run -p ../Pipeline -- -i Content -o $(OutputPath)Content" />
   </Target>
 </Project>

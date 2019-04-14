@@ -14,6 +14,7 @@
     <!--<PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7"/>-->
     <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="CommandLineParser" Version="2.4.3" />
     <ProjectReference Include="../../Source/Apos.Content.csproj" />
   </ItemGroup>
 </Project>
