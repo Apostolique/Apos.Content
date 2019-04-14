@@ -8,10 +8,15 @@ namespace Apos.Content.Read {
         /// <summary>
         /// Initializes a Context class.
         /// </summary>
-        public Context(GraphicsDevice graphicsDevice) {
+        public Context(string buildPath, GraphicsDevice graphicsDevice) {
+            BuildPath = buildPath;
             GraphicsDevice = graphicsDevice;
         }
 
+        public string BuildPath {
+            get;
+            set;
+        }
         /// <summary>
         /// The game's GraphicsDevice. Useful when creating new textures.
         /// </summary>

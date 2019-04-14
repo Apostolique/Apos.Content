@@ -5,11 +5,14 @@ using Microsoft.Xna.Framework.Input;
 using Optional;
 using Apos.Content.Read;
 using System.IO;
+using System.Threading;
 
 namespace GameExample {
     public class Core : Game {
         public Core() {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -20,53 +23,45 @@ namespace GameExample {
 
             base.Initialize();
         }
-
         protected override void LoadContent() {
             s = new SpriteBatch(GraphicsDevice);
 
-            ReadTexture2D ct = new ReadTexture2D();
-            ReadString cs = new ReadString();
+            _context = new Context("bin", GraphicsDevice);
+            Assets.LoadLoadingAssets(_context);
+            _loading = new Loading();
+            _update = _loading.Update;
+            _draw = _loading.Draw;
 
-            Context context = new Context(GraphicsDevice);
-
-            string buildPath = "bin";
-            string redImageFile = "RedImage";
-            string helloFile = "Hello";
-
-            string redImagePath = Path.Combine(buildPath, Path.ChangeExtension(redImageFile, ".xnb"));
-            string helloPath = Path.Combine(buildPath, Path.ChangeExtension(helloFile, ".xnb"));
-
-            // Read texture content.
-            Option<Texture2D> texture = ct.Read(redImagePath, context);
-            texture.MatchSome(t => {
-                _redImage = t;
-            });
-
-            // Read string content.
-            Option<string> textObject = cs.Read(helloPath, context);
-            textObject.MatchSome(t => {
-                Console.WriteLine(t);
-            });
+            Thread thread = new Thread(loadAssets);
+            thread.Start();
         }
-
+        private void loadAssets() {
+            Assets.LoadAssets(_context, doneLoading);
+        }
+        private void doneLoading() {
+            _pong = new Pong();
+            _update = _pong.Update;
+            _draw = _pong.Draw;
+        }
         private void WindowClientChanged(object sender, EventArgs e) { }
-
         protected override void Update(GameTime gameTime) {
+            _update();
+
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            s.Begin();
-            s.Draw(_redImage, Vector2.Zero, Color.White);
-            s.End();
+            _draw(s);
 
             base.Draw(gameTime);
         }
 
+        Action _update;
+        Action<SpriteBatch> _draw;
+
+        Loading _loading;
+        Pong _pong;
         GraphicsDeviceManager _graphics;
         SpriteBatch s;
-        Texture2D _redImage;
+        Context _context;
     }
 }
