@@ -13,12 +13,15 @@ namespace Pipeline {
 
             string helloFile = "Hello.txt";
             string redImageFile = "RedImage.png";
+            string loadingImageFile = "Loading.png";
 
             string helloInput = createInputPath(contentPath, helloFile);
             string redImageInput = createInputPath(contentPath, redImageFile);
+            string loadingImageInput = createInputPath(contentPath, loadingImageFile);
 
             string helloOutput = createOutputPath(buildPath, helloFile);
             string redImageOutput = createOutputPath(buildPath, redImageFile);
+            string loadingImageOutput = createOutputPath(buildPath, loadingImageFile);
 
             Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);
 
@@ -30,6 +33,7 @@ namespace Pipeline {
 
             buildContent<string>(cs, helloInput, helloOutput, settingsString);
             buildContent<Texture2D>(ct, redImageInput, redImageOutput, settingsTexture);
+            buildContent<Texture2D>(ct, loadingImageInput, loadingImageOutput, settingsTexture);
         }
         private static void buildContent<T>(Compiler<T> c, string inputPath, string outputPath, Settings<T> settings) {
             c.Build(inputPath, outputPath, settings);
