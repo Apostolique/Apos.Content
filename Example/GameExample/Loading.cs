@@ -16,7 +16,5 @@ namespace GameExample {
             s.Draw(Assets.LoadingImage, Vector2.Zero, Color.White);
             s.End();
         }
-
-        private string _loadingString;
     }
 }
