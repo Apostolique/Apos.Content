@@ -31,7 +31,7 @@ namespace Apos.Content.Read {
                         byte b = br.ReadByte();
                         byte a = br.ReadByte();
 
-                        colors[i + j * height] = new Color(r, g, b, a);
+                        colors[i + j * width] = new Color(r, g, b, a);
                     }
                 }
 
