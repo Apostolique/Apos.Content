@@ -18,8 +18,7 @@ namespace GameExample {
             string loadingImageFile = "Loading";
             string loadingImagePath = Path.Combine(context.BuildPath, Path.ChangeExtension(loadingImageFile, ".xnb"));
 
-            Option<Texture2D> texture = ct.Read(loadingImagePath, context);
-            texture.MatchSome(t => {
+            ct.Read(loadingImagePath, context).MatchSome(t => {
                 LoadingImage = t;
             });
         }
@@ -29,10 +28,7 @@ namespace GameExample {
             string redImageFile = "RedImage";
             string redImagePath = Path.Combine(context.BuildPath, Path.ChangeExtension(redImageFile, ".xnb"));
 
-            Option<Texture2D> texture;
-
-            texture = ct.Read(redImagePath, context);
-            texture.MatchSome(t => {
+            ct.Read(redImagePath, context).MatchSome(t => {
                 RedImage = t;
             });
         }
@@ -42,8 +38,7 @@ namespace GameExample {
             string helloFile = "Hello";
             string helloPath = Path.Combine(context.BuildPath, Path.ChangeExtension(helloFile, ".xnb"));
 
-            Option<string> textObject = cs.Read(helloPath, context);
-            textObject.MatchSome(t => {
+            cs.Read(helloPath, context).MatchSome(t => {
                 Console.WriteLine(t);
             });
         }
