@@ -28,7 +28,7 @@ namespace Pipeline {
                 string redImageOutput = createOutputPath(outputPath, redImageFile);
                 string loadingImageOutput = createOutputPath(outputPath, loadingImageFile);
 
-                Target target = new Target(Target.TargetPlatform.Windows, Target.TargetGraphicsBackend.OpenGL);
+                Target target = new Target(TargetPlatform.Windows, TargetGraphicsBackend.OpenGL);
 
                 CompileString cs = new CompileString();
                 CompileTexture2D ct = new CompileTexture2D();

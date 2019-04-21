@@ -25,27 +25,27 @@ namespace Apos.Content.Compile {
             get;
             set;
         }
+    }
 
-        /// <summary>
-        /// Platforms supported by MonoGame.
-        /// </summary>
-        public enum TargetPlatform {
-            Windows,
-            Linux,
-            MacOS,
-            Android,
-            iOS,
-            PS4,
-            XboxOne,
-            Switch
-        }
-        /// <summary>
-        /// Graphics backends supported by MonoGame.
-        /// </summary>
-        public enum TargetGraphicsBackend {
-            OpenGL,
-            DirectX,
-            UWP
-        }
+    /// <summary>
+    /// Platforms supported by MonoGame.
+    /// </summary>
+    public enum TargetPlatform {
+        Windows,
+        Linux,
+        MacOS,
+        Android,
+        iOS,
+        PS4,
+        XboxOne,
+        Switch
+    }
+    /// <summary>
+    /// Graphics backends supported by MonoGame.
+    /// </summary>
+    public enum TargetGraphicsBackend {
+        OpenGL,
+        DirectX,
+        UWP
     }
 }
