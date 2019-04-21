@@ -8,15 +8,15 @@ namespace Apos.Content.Read {
         /// <summary>
         /// Initializes a Context class.
         /// </summary>
-        public Context(string buildPath, GraphicsDevice graphicsDevice) {
-            BuildPath = buildPath;
+        public Context(string contentPath, GraphicsDevice graphicsDevice) {
+            ContentPath = contentPath;
             GraphicsDevice = graphicsDevice;
         }
 
         /// <summary>
         /// The path where the content should be read from.
         /// </summary>
-        public string BuildPath {
+        public string ContentPath {
             get;
             set;
         }
