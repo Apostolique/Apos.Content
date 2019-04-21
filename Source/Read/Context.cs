@@ -13,6 +13,9 @@ namespace Apos.Content.Read {
             GraphicsDevice = graphicsDevice;
         }
 
+        /// <summary>
+        /// The path where the content should be read from.
+        /// </summary>
         public string BuildPath {
             get;
             set;
