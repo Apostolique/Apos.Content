@@ -1,12 +1,18 @@
 # Apos.Content
 Content builder library for MonoGame.
 
+[![Discord](https://img.shields.io/discord/355231098122272778.svg)](https://discord.gg/N9t26Uv)
+
 ## Description
 This is an attempt at writing a new content pipeline for MonoGame.
+
+## Documentation
+* [API](https://apostolique.github.io/Apos.Content/)
 
 ## Goals
 * Make it easier to develop custom content builders.
 * Allow developers to build custom content into more than just binary files.
+  * For example a json file could be kept as pure text but validated on build.
 * Make it easier for libraries made for MonoGame to provide their own content.
 * Easier to integrate in a running game.
   * Build content at runtime.
