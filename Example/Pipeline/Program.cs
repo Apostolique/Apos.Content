@@ -36,9 +36,9 @@ namespace Pipeline {
                 SettingsTexture2D settingsTexture = new SettingsTexture2D(target);
                 Settings<string> settingsString = new Settings<string>(target);
 
-                buildContent<string, Settings<string>>(cs, helloInput, helloOutput, settingsString);
-                buildContent<Texture2D, SettingsTexture2D>(ct, redImageInput, redImageOutput, settingsTexture);
-                buildContent<Texture2D, SettingsTexture2D>(ct, loadingImageInput, loadingImageOutput, settingsTexture);
+                buildContent(cs, helloInput, helloOutput, settingsString);
+                buildContent(ct, redImageInput, redImageOutput, settingsTexture);
+                buildContent(ct, loadingImageInput, loadingImageOutput, settingsTexture);
             });
         }
         private static void buildContent<T, K>(Compiler<T, K> c, string inputPath, string outputPath, K settings) where K : Settings<T> {
