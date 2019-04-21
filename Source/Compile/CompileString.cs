@@ -6,7 +6,7 @@ namespace Apos.Content.Compile {
     /// <summary>
     /// A string content is simply a file with text.
     /// </summary>
-    public class CompileString : Compiler<string> {
+    public class CompileString : Compiler<string, Settings<string>> {
         /// <summary>
         /// Builds a string content.
         /// </summary>

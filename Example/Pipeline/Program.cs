@@ -33,15 +33,15 @@ namespace Pipeline {
                 CompileString cs = new CompileString();
                 CompileTexture2D ct = new CompileTexture2D();
 
-                Settings<Texture2D> settingsTexture = new Settings<Texture2D>(target);
+                SettingsTexture2D settingsTexture = new SettingsTexture2D(target);
                 Settings<string> settingsString = new Settings<string>(target);
 
-                buildContent<string>(cs, helloInput, helloOutput, settingsString);
-                buildContent<Texture2D>(ct, redImageInput, redImageOutput, settingsTexture);
-                buildContent<Texture2D>(ct, loadingImageInput, loadingImageOutput, settingsTexture);
+                buildContent<string, Settings<string>>(cs, helloInput, helloOutput, settingsString);
+                buildContent<Texture2D, SettingsTexture2D>(ct, redImageInput, redImageOutput, settingsTexture);
+                buildContent<Texture2D, SettingsTexture2D>(ct, loadingImageInput, loadingImageOutput, settingsTexture);
             });
         }
-        private static void buildContent<T>(Compiler<T> c, string inputPath, string outputPath, Settings<T> settings) {
+        private static void buildContent<T, K>(Compiler<T, K> c, string inputPath, string outputPath, K settings) where K : Settings<T> {
             c.Build(inputPath, outputPath, settings);
         }
         private static string createInputPath(string contentPath, string fileName) {
