@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <PackageId>Apos.Content</PackageId>
-    <Title>Apos.Content</Title>
+    <PackageId>Apos.Content.Read</PackageId>
+    <Title>Apos.Content.Read</Title>
     <Version>0.1.0</Version>
-    <Description>Content builder library for MonoGame.</Description>
+    <Description>Content reader library for MonoGame.</Description>
     <Authors>Jean-David Moisan</Authors>
     <Company>Vyne Enterprise Inc.</Company>
     <Copyright>Copyright 2019</Copyright>
@@ -20,6 +20,5 @@
   <ItemGroup>
     <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
   </ItemGroup>
 </Project>

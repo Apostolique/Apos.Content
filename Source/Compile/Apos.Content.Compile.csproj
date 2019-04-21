@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <PackageId>Apos.Content.Compile</PackageId>
+    <Title>Apos.Content.Compile</Title>
+    <Version>0.1.0</Version>
+    <Description>Content compiler library for MonoGame.</Description>
+    <Authors>Jean-David Moisan</Authors>
+    <Company>Vyne Enterprise Inc.</Company>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageTags>content;builder;monogame</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/Apostolique/Apos.Content/master/Images/Icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Apostolique/Apos.Content</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Apostolique/Apos.Content</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
+  </ItemGroup>
+</Project>
