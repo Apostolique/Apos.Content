@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("isp",["Property"],[["IsPremultipliedAlpha",,[["Apos.Content.Compile.SettingsTexture2D",,,,0,"File:Compile/SettingsTexture2D.cs:Apos.Content.Compile.SettingsTexture2D.IsPremultipliedAlpha","CSharpClass:Apos.Content.Compile.SettingsTexture2D:IsPremultipliedAlpha"]]]]);

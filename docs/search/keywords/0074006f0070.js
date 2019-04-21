@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("top",["Function"],[["toPremultiplyAlpha",,[["Apos.Content.Compile.CompileTexture2D",,,,0,"File:Compile/CompileTexture2D.cs:Apos.Content.Compile.CompileTexture2D.toPremultiplyAlpha","CSharpClass:Apos.Content.Compile.CompileTexture2D:toPremultiplyAlpha"]]]]);
