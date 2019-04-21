@@ -6,7 +6,7 @@ using Optional;
 
 namespace Apos.Content.Read {
     /// <summary>
-    /// Builds and reads Texture2D content.
+    /// Reads Texture2D content.
     /// </summary>
     public class ReadTexture2D : Reader<Texture2D> {
         /// <summary>

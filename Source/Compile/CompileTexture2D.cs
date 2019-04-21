@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Apos.Content.Compile {
     /// <summary>
-    /// Builds and reads Texture2D content.
+    /// Compiles images into Texture2D content.
     /// </summary>
     public class CompileTexture2D : Compiler<Texture2D, SettingsTexture2D> {
         /// <summary>
