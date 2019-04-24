@@ -1,36 +1,59 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Apos.Content.Read;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Optional;
+using SpriteFontPlus;
 
 namespace GameExample {
     public static class Assets {
         public static void LoadAssets(Context context, Action done) {
+            LoadFont(context);
             LoadTextures(context);
             done();
         }
 
         public static void LoadLoadingAssets(Context context) {
-            ReadTexture2D ct = new ReadTexture2D();
+            ReadTexture2D rt = new ReadTexture2D();
             string loadingImageFile = "Loading";
             string loadingImagePath = Path.Combine(context.ContentPath, Path.ChangeExtension(loadingImageFile, ".xnb"));
 
-            ct.Read(loadingImagePath, context).MatchSome(t => {
+            rt.Read(loadingImagePath, context).MatchSome(t => {
                 LoadingImage = t;
+            });
+        }
+        public static void LoadFont(Context context) {
+            ReadBinary rb = new ReadBinary();
+            string fontFile = "SourceCodePro-Medium";
+            string fontPath = Path.Combine(context.ContentPath, Path.ChangeExtension(fontFile, ".xnb"));
+
+            rb.Read(fontPath, context).MatchSome(bs => {
+                Font = DynamicSpriteFont.FromTtf(bs, 30);
             });
         }
         public static void LoadTextures(Context context) {
             // Read texture content.
-            ReadTexture2D ct = new ReadTexture2D();
-            string redImageFile = "RedImage";
-            string redImagePath = Path.Combine(context.ContentPath, Path.ChangeExtension(redImageFile, ".xnb"));
+            ReadTexture2D rt = new ReadTexture2D();
 
-            ct.Read(redImagePath, context).MatchSome(t => {
-                RedImage = t;
-            });
+            List<Tuple<string, Action<Texture2D>>> files = new List<Tuple<string, Action<Texture2D>>>() {
+                new Tuple<string, Action<Texture2D>>("RedImage", o => {RedImage = o;}),
+                new Tuple<string, Action<Texture2D>>("Background", o => {Background = o;}),
+                new Tuple<string, Action<Texture2D>>("Board", o => {Board = o;}),
+                new Tuple<string, Action<Texture2D>>("Ball", o => {Ball = o;}),
+                new Tuple<string, Action<Texture2D>>("Paddle1", o => {Paddle1 = o;}),
+                new Tuple<string, Action<Texture2D>>("Paddle2", o => {Paddle2 = o;}),
+            };
+
+            foreach (Tuple<string, Action<Texture2D>> file in files) {
+                string path = Path.Combine(context.ContentPath, Path.ChangeExtension(file.Item1, ".xnb"));
+
+                rt.Read(path, context).MatchSome(t => {
+                    file.Item2(t);
+                });
+            }
         }
         public static void LoadStrings(Context context) {
             // Read string content.
@@ -43,8 +66,13 @@ namespace GameExample {
             });
         }
 
-
         public static Texture2D LoadingImage;
         public static Texture2D RedImage;
+        public static Texture2D Background;
+        public static Texture2D Board;
+        public static Texture2D Ball;
+        public static Texture2D Paddle1;
+        public static Texture2D Paddle2;
+        public static DynamicSpriteFont Font;
     }
 }

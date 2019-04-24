@@ -7,13 +7,15 @@ using Apos.Content.Read;
 using System.IO;
 using System.Threading;
 using System.Reflection;
+using Apos.Input;
+using System.Runtime.InteropServices;
 
 namespace GameExample {
     public class Core : Game {
         public Core() {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 1850;
+            _graphics.PreferredBackBufferHeight = 900;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -21,6 +23,8 @@ namespace GameExample {
         protected override void Initialize() {
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += WindowClientChanged;
+
+            InputHelper.Game = this;
 
             base.Initialize();
         }
@@ -54,7 +58,9 @@ namespace GameExample {
         }
         private void WindowClientChanged(object sender, EventArgs e) { }
         protected override void Update(GameTime gameTime) {
+            InputHelper.UpdateSetup();
             _update();
+            InputHelper.Update();
 
             base.Update(gameTime);
         }
