@@ -11,9 +11,9 @@ namespace Apos.Content.Compile {
         /// Builds a string content.
         /// </summary>
         public override void Build(Stream input, Stream output, Settings<string> settings) {
-            using (StreamReader br = new StreamReader(input))
+            using (StreamReader sr = new StreamReader(input))
             using (BinaryWriter bw = new BinaryWriter(output)) {
-                string text = br.ReadToEnd();
+                string text = sr.ReadToEnd();
                 bw.Write(text);
             }
         }
