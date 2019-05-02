@@ -9,6 +9,10 @@ This is an attempt at writing a new content pipeline for MonoGame.
 ## Documentation
 * [API](https://apostolique.github.io/Apos.Content/)
 
+## Build
+* [![NuGet](https://img.shields.io/nuget/v/Apos.Content.Read.svg)](https://www.nuget.org/packages/Apos.Content.Read/) [![NuGet](https://img.shields.io/nuget/dt/Apos.Content.Read.svg)](https://www.nuget.org/packages/Apos.Content.Read/) [Apos.Content.Read NuGet](https://www.nuget.org/packages/Apos.Content.Read/)
+* [![NuGet](https://img.shields.io/nuget/v/Apos.Content.Compile.svg)](https://www.nuget.org/packages/Apos.Content.Compile/) [![NuGet](https://img.shields.io/nuget/dt/Apos.Content.Compile.svg)](https://www.nuget.org/packages/Apos.Content.Compile/) [Apos.Content.Compile NuGet](https://www.nuget.org/packages/Apos.Content.Compile/)
+
 ## Goals
 * Make it easier to develop custom content builders.
 * Allow developers to build custom content into more than just binary files.
