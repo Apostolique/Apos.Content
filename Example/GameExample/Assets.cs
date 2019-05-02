@@ -11,7 +11,6 @@ using SpriteFontPlus;
 namespace GameExample {
     public static class Assets {
         public static void LoadAssets(Context context, Action done) {
-            LoadFont(context);
             LoadTextures(context);
             done();
         }
@@ -24,6 +23,8 @@ namespace GameExample {
             rt.Read(loadingImagePath, context).MatchSome(t => {
                 LoadingImage = t;
             });
+
+            LoadFont(context);
         }
         public static void LoadFont(Context context) {
             ReadBinary rb = new ReadBinary();
