@@ -3,17 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Apos.Input;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
-using System.Diagnostics;
 using Optional;
 using System;
 using SpriteFontPlus;
 
 namespace GameExample {
-    public class Pong {
+    public class Pong : GameObject {
         public Pong() {
-            _realGametime = new Stopwatch();
-            _realGametime.Start();
-
             _up = new ConditionComposite();
             _up.AddSet(Keys.Up);
 
@@ -26,36 +22,47 @@ namespace GameExample {
             _pause = new ConditionComposite();
             _pause.AddSet(Keys.Space);
 
-            _paddle1 = new RectangleF(440, 400, Assets.Paddle1.Width, Assets.Paddle1.Height);
-            _paddle2 = new RectangleF(1470, 600, Assets.Paddle2.Width, Assets.Paddle2.Height);
+            _toggleAI = new ConditionComposite();
+            _toggleAI.AddSet(Keys.Q);
+
+            _paddle1 = new Paddle(Assets.Paddle1, new RectangleF(440, 400, Assets.Paddle1.Width, Assets.Paddle1.Height), 0, _paddleSpeed);
+            _paddle2 = new Paddle(Assets.Paddle2, new RectangleF(1470, 600, Assets.Paddle2.Width, Assets.Paddle2.Height), 0, _paddleSpeed);
             _ball = new RectangleF(713, 327, Assets.Ball.Width, Assets.Ball.Height);
             _oldBall = _ball;
             _bounds = new Rectangle(340, 205, Assets.Board.Width, Assets.Board.Height);
+            _rand = new Random();
         }
 
         public void Update() {
-            updateTime();
-            _fps.Update(ElapsedTime);
-
             if (_pause.Pressed()) {
                 _isPaused = !_isPaused;
             }
 
             if (!_isPaused) {
-                if (_up.Held()) {
-                    _paddle1.Y -= (float)(_paddleSpeed * ElapsedTime);
+                if (_toggleAI.Pressed()) {
+                    _isAI = !_isAI;
                 }
-                if (_down.Held()) {
-                    _paddle1.Y += (float)(_paddleSpeed * ElapsedTime);
+                if (!_isAI) {
+                    if (_up.Held()) {
+                        _paddle1.Y -= (float)(_paddleSpeed * Core.ElapsedTime);
+                    }
+                    if (_down.Held()) {
+                        _paddle1.Y += (float)(_paddleSpeed * Core.ElapsedTime);
+                    }
                 }
                 if (_reverse.Pressed()) {
                     reverseBall();
                 }
 
                 _oldBall.Position = _ball.Position;
-                _ball.Position += _direction * (float)(_ballSpeed * ElapsedTime);
+                _ball.Position += _direction * (float)(_ballSpeed * Core.ElapsedTime);
 
-                _paddle2.Y = _ball.Y + _ball.Height / 2 - _paddle2.Height / 2;
+                if (_isAI) {
+                    _paddle1.TargetPosition = _ball.Y + _ball.Height / 2 - _paddle1.HalfHeight;
+                    _paddle1.Update();
+                }
+                _paddle2.TargetPosition = _ball.Y + _ball.Height / 2 - _paddle2.HalfHeight;
+                _paddle2.Update();
 
                 keepWithinBounds(ref _paddle1);
                 keepWithinBounds(ref _paddle2);
@@ -64,48 +71,37 @@ namespace GameExample {
 
                 checkScore(ref _ball);
             }
-
         }
         public void Draw(SpriteBatch s) {
-            _fps.Draw();
-            s.GraphicsDevice.Clear(Color.Black);
-            s.Begin();
             s.Draw(Assets.Background, Vector2.Zero, Color.White);
             s.Draw(Assets.Board, new Vector2(340, 205), Color.White);
-            s.Draw(Assets.Paddle1, _paddle1.Position, Color.White);
-            s.Draw(Assets.Paddle2, _paddle2.Position, Color.White);
-            s.Draw(Assets.Ball, _oldBall.Position, Color.Red);
+            _paddle1.Draw(s);
+            _paddle2.Draw(s);
+            //s.Draw(Assets.Ball, _oldBall.Position, Color.Red);
             s.Draw(Assets.Ball, _ball.Position, Color.White);
-            s.DrawString(Assets.Font, "fps: " + _fps.FramesPerSecond, new Vector2(20, 20), Color.White);
-            s.End();
         }
 
         ConditionComposite _up;
         ConditionComposite _down;
         ConditionComposite _reverse;
         ConditionComposite _pause;
-        RectangleF _paddle1;
-        RectangleF _paddle2;
+        ConditionComposite _toggleAI;
+        Paddle _paddle1;
+        Paddle _paddle2;
         Rectangle _bounds;
         RectangleF _ball;
         RectangleF _oldBall;
         Vector2 _direction = Vector2.Normalize(new Vector2(1, 1));
         float _ballSpeed = 0.50f;
-        float _paddleSpeed = 0.50f;
+        float _paddleSpeed = 0.30f;
         bool _isPaused = false;
-
-        private Stopwatch _realGametime;
-        private long _lastUpdateTime = 0;
-        private long _currentUpdateTime = 0;
-        private FPSCounter _fps = new FPSCounter();
-
-        private long ElapsedTime => _currentUpdateTime - _lastUpdateTime;
-        private long TotalTime => _currentUpdateTime;
+        bool _isAI = true;
+        Random _rand;
 
         private void reverseBall() {
             _direction = Vector2.Negate(_direction);
         }
-        private void keepWithinBounds(ref RectangleF r) {
+        private void keepWithinBounds(ref Paddle r) {
             if (r.Top < _bounds.Top) {
                 r.Y = _bounds.Y;
             }
@@ -141,6 +137,7 @@ namespace GameExample {
                 });
                 if (found) {
                     direction = Vector2.Normalize(intersection - paddle1Origin);
+                    _paddle2.Offset = _rand.Next(-(int)_paddle2.HalfHeight, (int)_paddle2.HalfHeight);
                 }
             }
             if (b.Right > _paddle2.Left && oldB.Left < _paddle2.Right) {
@@ -157,6 +154,7 @@ namespace GameExample {
                 });
                 if (found) {
                     direction = Vector2.Normalize(intersection - paddle2Origin);
+                    _paddle1.Offset = _rand.Next(-(int)_paddle1.HalfHeight, (int)_paddle1.HalfHeight);
                 }
             }
         }
@@ -200,9 +198,85 @@ namespace GameExample {
             }
             return Option.None<Vector2>();
         }
-        private void updateTime() {
-            _lastUpdateTime = _currentUpdateTime;
-            _currentUpdateTime = _realGametime.ElapsedMilliseconds;
+
+        private class Paddle : GameObject {
+            public Paddle(Texture2D texture, RectangleF rectangle, float targetPosition, float speed) {
+                Texture = texture;
+                Rectangle = rectangle;
+                TargetPosition = targetPosition;
+                Speed = speed;
+            }
+
+            public Texture2D Texture {
+                get;
+                set;
+            }
+            public RectangleF Rectangle {
+                get => _rectangle;
+                set {
+                    _rectangle = value;
+                }
+            }
+            public float TargetPosition {
+                get;
+                set;
+            }
+            public float Offset {
+                get;
+                set;
+            } = 0;
+            public float Speed {
+                get;
+                set;
+            }
+            public float X {
+                get => _rectangle.X;
+                set {
+                    _rectangle.X = value;
+                }
+            }
+            public float Y {
+                get => _rectangle.Y;
+                set {
+                    _rectangle.Y = value;
+                }
+            }
+            public float Width {
+                get => _rectangle.Width;
+                set {
+                    _rectangle.Width = value;
+                }
+            }
+            public float Height {
+                get => _rectangle.Height;
+                set {
+                    _rectangle.Height = value;
+                }
+            }
+            public float HalfHeight => Height / 2;
+            public float Left => _rectangle.Left;
+            public float Top => _rectangle.Top;
+            public float Right => _rectangle.Right;
+            public float Bottom => _rectangle.Bottom;
+            public Vector2 Position => _rectangle.Position;
+            public Vector2 Center => _rectangle.Center;
+
+            public void Update() {
+                float target = TargetPosition + Offset;
+                int sign = Math.Sign(target - Y);
+                float diff1 = Math.Abs(target - Y);
+                float diff2 = Speed * Core.ElapsedTime;
+                if (diff1 <= diff2) {
+                    Y = target;
+                } else {
+                    Y += diff2 * sign;
+                }
+            }
+            public void Draw(SpriteBatch s) {
+                s.Draw(Texture, Rectangle.Position, Color.White);
+            }
+
+            private RectangleF _rectangle;
         }
     }
 }

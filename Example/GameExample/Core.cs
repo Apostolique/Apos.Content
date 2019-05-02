@@ -9,6 +9,8 @@ using System.Threading;
 using System.Reflection;
 using Apos.Input;
 using System.Runtime.InteropServices;
+using SpriteFontPlus;
+using System.Diagnostics;
 
 namespace GameExample {
     public class Core : Game {
@@ -19,6 +21,9 @@ namespace GameExample {
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+
+        public static long ElapsedTime => _currentUpdateTime - _lastUpdateTime;
+        public static long TotalTime => _currentUpdateTime;
 
         protected override void Initialize() {
             Window.AllowUserResizing = true;
@@ -37,13 +42,15 @@ namespace GameExample {
             }
         }
         protected override void LoadContent() {
-            s = new SpriteBatch(GraphicsDevice);
+            _realGametime = new Stopwatch();
+            _realGametime.Start();
+
+            _s = new SpriteBatch(GraphicsDevice);
 
             _context = new Context(Path.Combine(AssemblyDirectory, "Content"), GraphicsDevice);
             Assets.LoadLoadingAssets(_context);
             _loading = new Loading();
-            _update = _loading.Update;
-            _draw = _loading.Draw;
+            _go = _loading;
 
             Thread thread = new Thread(loadAssets);
             thread.Start();
@@ -53,30 +60,44 @@ namespace GameExample {
         }
         private void doneLoading() {
             _pong = new Pong();
-            _update = _pong.Update;
-            _draw = _pong.Draw;
+            _go = _pong;
         }
         private void WindowClientChanged(object sender, EventArgs e) { }
         protected override void Update(GameTime gameTime) {
+            updateTime();
             InputHelper.UpdateSetup();
-            _update();
-            InputHelper.Update();
+            _fps.Update(ElapsedTime);
+            _go.Update();
+            InputHelper.UpdateCleanup();
 
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime) {
-            _draw(s);
+            _fps.Draw();
+            _s.GraphicsDevice.Clear(Color.Black);
+            _s.Begin();
+            _go.Draw(_s);
+            _s.DrawString(Assets.Font, "fps: " + _fps.FramesPerSecond, new Vector2(20, 20), Color.White);
+            _s.End();
 
             base.Draw(gameTime);
         }
 
-        Action _update;
-        Action<SpriteBatch> _draw;
-
+        GameObject _go;
         Loading _loading;
         Pong _pong;
         GraphicsDeviceManager _graphics;
-        SpriteBatch s;
+        SpriteBatch _s;
         Context _context;
+        FPSCounter _fps = new FPSCounter();
+
+        private Stopwatch _realGametime;
+        private static long _lastUpdateTime = 0;
+        private static long _currentUpdateTime = 0;
+
+        private void updateTime() {
+            _lastUpdateTime = _currentUpdateTime;
+            _currentUpdateTime = _realGametime.ElapsedMilliseconds;
+        }
     }
 }
