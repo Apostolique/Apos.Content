@@ -19,6 +19,7 @@
     <ProjectReference Include="../../Source/Read/Apos.Content.Read.csproj" />
   </ItemGroup>
   <Target Name="Build Content" BeforeTargets="Build">
-    <Exec Command="dotnet run -p ../Pipeline -- -i Content -o $(OutputPath)Content" />
+    <Exec Condition="'$(Configuration)'=='debug'" Command="dotnet run -p ../Pipeline -- -i Content -o $(OutputPath)Content" />
+    <Exec Condition="'$(Configuration)'=='release'" Command="dotnet run -p ../Pipeline -- -i Content -o $(PublishDir)Content" />
   </Target>
 </Project>
