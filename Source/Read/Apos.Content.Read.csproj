@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <PackageId>Apos.Content.Read</PackageId>
     <Title>Apos.Content.Read</Title>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Description>Content reader library for MonoGame.</Description>
     <Authors>Jean-David Moisan</Authors>
     <Company>Vyne Enterprise Inc.</Company>
