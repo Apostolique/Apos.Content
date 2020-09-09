@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using Apos.Content.Read;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Optional;
 using SpriteFontPlus;
 
 namespace GameExample {

@@ -1,14 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Optional;
 using Apos.Content.Read;
 using System.IO;
 using System.Threading;
 using System.Reflection;
 using Apos.Input;
-using System.Runtime.InteropServices;
 using SpriteFontPlus;
 using System.Diagnostics;
 

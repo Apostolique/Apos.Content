@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using Microsoft.Xna.Framework.Graphics;
-using Optional;
-using Apos.Content;
 
 namespace GameExample {
     class Program {

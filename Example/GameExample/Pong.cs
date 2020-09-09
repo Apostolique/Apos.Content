@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Optional;
 using System;
-using SpriteFontPlus;
 
 namespace GameExample {
     public class Pong : GameObject {
