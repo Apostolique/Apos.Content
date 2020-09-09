@@ -16,6 +16,7 @@ namespace Apos.Content.Compile {
             using (StreamReader sr = new StreamReader(input))
             using (BsonDataWriter bw = new BsonDataWriter(output)) {
                 JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
                 string text = sr.ReadToEnd();
                 serializer.Serialize(bw, text);
             }

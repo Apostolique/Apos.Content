@@ -20,6 +20,6 @@
   <ItemGroup>
     <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
-    <PackageReference Include="MonoGame.Framework.Portable" PrivateAssets="All" Version="3.6.0.1625" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
   </ItemGroup>
 </Project>

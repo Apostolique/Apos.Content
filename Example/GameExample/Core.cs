@@ -18,6 +18,7 @@ namespace GameExample {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1850;
             _graphics.PreferredBackBufferHeight = 900;
+            _graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }

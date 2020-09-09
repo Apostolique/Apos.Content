@@ -10,20 +10,11 @@ using SpriteFontPlus;
 namespace GameExample {
     public class Pong : GameObject {
         public Pong() {
-            _up = new ConditionComposite();
-            _up.AddSet(Keys.Up);
-
-            _down = new ConditionComposite();
-            _down.AddSet(Keys.Down);
-
-            _reverse = new ConditionComposite();
-            _reverse.AddSet(Keys.Enter);
-
-            _pause = new ConditionComposite();
-            _pause.AddSet(Keys.Space);
-
-            _toggleAI = new ConditionComposite();
-            _toggleAI.AddSet(Keys.Q);
+            _up = new KeyboardCondition(Keys.Up);
+            _down = new KeyboardCondition(Keys.Down);
+            _reverse = new KeyboardCondition(Keys.Enter);
+            _pause = new KeyboardCondition(Keys.Space);
+            _toggleAI = new KeyboardCondition(Keys.Q);
 
             _paddle1 = new Paddle(Assets.Paddle1, new RectangleF(440, 400, Assets.Paddle1.Width, Assets.Paddle1.Height), 0, _paddleSpeed);
             _paddle2 = new Paddle(Assets.Paddle2, new RectangleF(1470, 600, Assets.Paddle2.Width, Assets.Paddle2.Height), 0, _paddleSpeed);
@@ -77,15 +68,14 @@ namespace GameExample {
             s.Draw(Assets.Board, new Vector2(340, 205), Color.White);
             _paddle1.Draw(s);
             _paddle2.Draw(s);
-            //s.Draw(Assets.Ball, _oldBall.Position, Color.Red);
             s.Draw(Assets.Ball, _ball.Position, Color.White);
         }
 
-        ConditionComposite _up;
-        ConditionComposite _down;
-        ConditionComposite _reverse;
-        ConditionComposite _pause;
-        ConditionComposite _toggleAI;
+        ICondition _up;
+        ICondition _down;
+        ICondition _reverse;
+        ICondition _pause;
+        ICondition _toggleAI;
         Paddle _paddle1;
         Paddle _paddle2;
         Rectangle _bounds;
