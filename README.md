@@ -7,7 +7,7 @@ Content builder library for MonoGame.
 This is an attempt at writing a new content pipeline for MonoGame.
 
 ## Documentation
-* [API](https://apostolique.github.io/Apos.Content/)
+* None for now.
 
 ## Build
 
