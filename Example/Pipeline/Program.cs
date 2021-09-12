@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Xna.Framework.Graphics;
-using Optional;
 using Apos.Content.Compile;
 using CommandLine;
-using System.Collections.Generic;
 
 namespace Pipeline {
     class Program {
@@ -19,13 +16,13 @@ namespace Pipeline {
 
                 Target target = new Target(TargetPlatform.Windows, TargetGraphicsBackend.OpenGL);
 
-                SettingsTexture2D settingsTexture = new SettingsTexture2D(target);
+                Texture2DSettings settingsTexture = new Texture2DSettings(target);
                 Settings<string> settingsString = new Settings<string>(target);
                 Settings<byte[]> settingsBinary = new Settings<byte[]>(target);
 
-                CompileString cs = new CompileString();
-                CompileTexture2D ct = new CompileTexture2D();
-                CompileBinary cb = new CompileBinary();
+                StringCompiler cs = new StringCompiler();
+                Texture2DCompiler ct = new Texture2DCompiler();
+                BinaryCompiler cb = new BinaryCompiler();
 
                 string helloFile = "Hello.txt";
                 string redImageFile = "RedImage.png";
@@ -39,50 +36,38 @@ namespace Pipeline {
 
                 string fontFile = "SourceCodePro-Medium.ttf";
 
-                buildContent(cs, helloFile, settingsString);
-                buildContent(ct, redImageFile, settingsTexture);
-                buildContent(ct, loadingImageFile, settingsTexture);
+                BuildContent(cs, helloFile, settingsString);
+                BuildContent(ct, redImageFile, settingsTexture);
+                BuildContent(ct, loadingImageFile, settingsTexture);
 
-                buildContent(ct, backgroundFile, settingsTexture);
-                buildContent(ct, boardFile, settingsTexture);
-                buildContent(ct, ballFile, settingsTexture);
-                buildContent(ct, paddle1File, settingsTexture);
-                buildContent(ct, paddle2File, settingsTexture);
-                buildContent(cb, fontFile, settingsBinary);
+                BuildContent(ct, backgroundFile, settingsTexture);
+                BuildContent(ct, boardFile, settingsTexture);
+                BuildContent(ct, ballFile, settingsTexture);
+                BuildContent(ct, paddle1File, settingsTexture);
+                BuildContent(ct, paddle2File, settingsTexture);
+                BuildContent(cb, fontFile, settingsBinary);
             });
         }
-        private static string _inputPath {
-            get;
-            set;
+        private static string _inputPath { get; set; }
+        private static string _outputPath { get; set; }
+        private static void BuildContent<T, K>(Compiler<T, K> c, string inputFile, K settings) where K : Settings<T> {
+            BuildContent(c, CreateInputPath(_inputPath, inputFile), CreateOutputPath(_outputPath, inputFile), settings);
         }
-        private static string _outputPath {
-            get;
-            set;
-        }
-        private static void buildContent<T, K>(Compiler<T, K> c, string inputFile, K settings) where K : Settings<T> {
-            buildContent(c, createInputPath(_inputPath, inputFile), createOutputPath(_outputPath, inputFile), settings);
-        }
-        private static void buildContent<T, K>(Compiler<T, K> c, string inputPath, string outputPath, K settings) where K : Settings<T> {
+        private static void BuildContent<T, K>(Compiler<T, K> c, string inputPath, string outputPath, K settings) where K : Settings<T> {
             c.Build(inputPath, outputPath, settings);
         }
-        private static string createInputPath(string contentPath, string fileName) {
+        private static string CreateInputPath(string contentPath, string fileName) {
             return Path.Combine(contentPath, fileName);
         }
-        private static string createOutputPath(string buildPath, string fileName) {
+        private static string CreateOutputPath(string buildPath, string fileName) {
             return Path.Combine(buildPath, Path.ChangeExtension(fileName, ".xnb"));
         }
 
         private class Options {
             [Option('i', "input", Required = true, HelpText = "Sets content input path.")]
-            public string Input {
-                get;
-                set;
-            }
+            public string Input { get; set; }
             [Option('o', "output", Required = true, HelpText = "Sets content output path.")]
-            public string Output {
-                get;
-                set;
-            }
+            public string Output { get; set; }
         }
     }
 }

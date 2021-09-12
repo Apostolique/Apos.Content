@@ -13,9 +13,6 @@ namespace Apos.Content.Compile {
         /// <summary>
         /// Target platform and graphics backend that the content should be built for.
         /// </summary>
-        public Target Target {
-            get;
-            set;
-        }
+        public Target Target { get; set; }
     }
 }

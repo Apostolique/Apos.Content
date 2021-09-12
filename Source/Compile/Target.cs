@@ -14,17 +14,11 @@ namespace Apos.Content.Compile {
         /// <summary>
         /// The environment for which the content should be built for.
         /// </summary>
-        public TargetPlatform Platform {
-            get;
-            set;
-        }
+        public TargetPlatform Platform { get; set; }
         /// <summary>
         /// The graphics backend for which the content should be built for.
         /// </summary>
-        public TargetGraphicsBackend GraphicsBackend {
-            get;
-            set;
-        }
+        public TargetGraphicsBackend GraphicsBackend { get; set; }
     }
 
     /// <summary>

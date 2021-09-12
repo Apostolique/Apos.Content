@@ -1,21 +1,19 @@
-﻿using System;
-using System.IO;
-using Optional;
+﻿using System.IO;
 
 namespace Apos.Content.Read {
     /// <summary>
     /// A string content is simply a file with text.
     /// </summary>
-    public class ReadString : Reader<string> {
+    public class StringReader : Reader<string> {
         /// <summary>
         /// Reads a string content.
         /// </summary>
         /// <returns>
         /// Returns something only if the content can be parsed.
         /// </returns>
-        public override Option<string> Read(Stream input, Context context) {
-            using (BinaryReader br = new BinaryReader(input)) {
-                return Option.Some(br.ReadString());
+        public override string Read(Stream input, Context context) {
+            using (System.IO.BinaryReader br = new System.IO.BinaryReader(input)) {
+                return br.ReadString();
             }
         }
     }

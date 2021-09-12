@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using Apos.Content.Read;
+using Apos.Input;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Apos.Content.Read;
-using System.IO;
-using System.Threading;
-using System.Reflection;
-using Apos.Input;
-using SpriteFontPlus;
-using System.Diagnostics;
 
 namespace GameExample {
     public class Core : Game {
@@ -50,19 +50,19 @@ namespace GameExample {
             _loading = new Loading();
             _go = _loading;
 
-            Thread thread = new Thread(loadAssets);
+            Thread thread = new Thread(LoadAssets);
             thread.Start();
         }
-        private void loadAssets() {
-            Assets.LoadAssets(_context, doneLoading);
+        private void LoadAssets() {
+            Assets.LoadAssets(_context, DoneLoading);
         }
-        private void doneLoading() {
+        private void DoneLoading() {
             _pong = new Pong();
             _go = _pong;
         }
         private void WindowClientChanged(object sender, EventArgs e) { }
         protected override void Update(GameTime gameTime) {
-            updateTime();
+            UpdateTime();
             InputHelper.UpdateSetup();
             _fps.Update(ElapsedTime);
             _go.Update();
@@ -75,7 +75,7 @@ namespace GameExample {
             _s.GraphicsDevice.Clear(Color.Black);
             _s.Begin();
             _go.Draw(_s);
-            _s.DrawString(Assets.Font, "fps: " + _fps.FramesPerSecond, new Vector2(20, 20), Color.White);
+            _s.DrawString(Assets.Font, $"fps: {_fps.FramesPerSecond}", new Vector2(20, 20), Color.White);
             _s.End();
 
             base.Draw(gameTime);
@@ -93,7 +93,7 @@ namespace GameExample {
         private static long _lastUpdateTime = 0;
         private static long _currentUpdateTime = 0;
 
-        private void updateTime() {
+        private void UpdateTime() {
             _lastUpdateTime = _currentUpdateTime;
             _currentUpdateTime = _realGametime.ElapsedMilliseconds;
         }

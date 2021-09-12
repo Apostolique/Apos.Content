@@ -16,16 +16,10 @@ namespace Apos.Content.Read {
         /// <summary>
         /// The path where the content should be read from.
         /// </summary>
-        public string ContentPath {
-            get;
-            set;
-        }
+        public string ContentPath { get; set; }
         /// <summary>
         /// The game's GraphicsDevice. Useful when creating new textures.
         /// </summary>
-        public GraphicsDevice GraphicsDevice {
-            get;
-            set;
-        }
+        public GraphicsDevice GraphicsDevice { get; set; }
     }
 }

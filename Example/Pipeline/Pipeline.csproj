@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,13 +8,15 @@
     <Description>Pipeline used to build the game's content.</Description>
     <Authors>Jean-David Moisan</Authors>
     <Company>Vyne Enterprise Inc.</Company>
-    <Copyright>Copyright 2019</Copyright>
+    <Copyright>Copyright 2021</Copyright>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="CommandLineParser" Version="2.4.3" />
+
     <ProjectReference Include="../../Source/Compile/Apos.Content.Compile.csproj" />
   </ItemGroup>
+
 </Project>

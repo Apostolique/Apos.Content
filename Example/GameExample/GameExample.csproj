@@ -1,30 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Title>GameExample</Title>
     <Version>0.1.0</Version>
     <Description>Example to show how to use Apos.Content in a game.</Description>
     <Authors>Jean-David Moisan</Authors>
     <Company>Vyne Enterprise Inc.</Company>
-    <Copyright>Copyright 2019</Copyright>
-    <MonoGamePlatform>DesktopGl</MonoGamePlatform>
+    <Copyright>Copyright 2021</Copyright>
     <PublishTrimmed>true</PublishTrimmed>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
     <RuntimeIdentifiers>win10-x64;linux-x64;osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Extended" Version="3.7.0"/>
-    <PackageReference Include="SpriteFontPlus" Version="0.8.1.40"/>
+    <PackageReference Include="FontStashSharp.MonoGame" Version="1.0.3"/>
     <PackageReference Include="Apos.Input" Version="1.0.0"/>
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <ProjectReference Include="../../Source/Read/Apos.Content.Read.csproj" />
   </ItemGroup>
+
   <Target Name="Build Content" BeforeTargets="Build">
-    <Exec Condition="'$(Configuration)'=='debug'" Command="dotnet run -p ../Pipeline -- -i Content -o $(OutputPath)Content" />
-    <Exec Condition="'$(Configuration)'=='release'" Command="dotnet run -p ../Pipeline -- -i Content -o $(PublishDir)Content" />
+    <Exec Condition="'$(Configuration)'=='debug'" Command="dotnet run --project ../Pipeline -- -i Content -o $(OutputPath)Content" />
+    <Exec Condition="'$(Configuration)'=='release'" Command="dotnet run --project ../Pipeline -- -i Content -o $(PublishDir)Content" />
   </Target>
+
 </Project>

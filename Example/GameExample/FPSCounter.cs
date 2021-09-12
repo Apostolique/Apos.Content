@@ -7,22 +7,10 @@ namespace GameExample {
     class FPSCounter {
         public FPSCounter() { }
 
-        public int FramesPerSecond {
-            get;
-            private set;
-        } = 0;
-        public int UpdatePerSecond {
-            get;
-            private set;
-        } = 0;
-        public double TimePerFrame {
-            get;
-            private set;
-        } = 0;
-        public double TimePerUpdate {
-            get;
-            private set;
-        } = 0;
+        public int FramesPerSecond { get; private set; } = 0;
+        public int UpdatePerSecond { get; private set; } = 0;
+        public double TimePerFrame { get; private set; } = 0;
+        public double TimePerUpdate { get; private set; } = 0;
 
         public void Update(long elapsedTime) {
             _updateCounter++;

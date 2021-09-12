@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using Optional;
+﻿using System.IO;
 
 namespace Apos.Content.Compile {
     /// <summary>
     /// A binary content only contains bytes.
     /// </summary>
-    public class CompileBinary : Compiler<byte[], Settings<byte[]>> {
+    public class BinaryCompiler : Compiler<byte[], Settings<byte[]>> {
         /// <summary>
         /// Builds a binary content.
         /// </summary>

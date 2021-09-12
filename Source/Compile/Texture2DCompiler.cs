@@ -1,18 +1,16 @@
-using System;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
-using Optional;
 using System.Drawing;
 
 namespace Apos.Content.Compile {
     /// <summary>
     /// Compiles images into Texture2D content.
     /// </summary>
-    public class CompileTexture2D : Compiler<Texture2D, SettingsTexture2D> {
+    public class Texture2DCompiler : Compiler<Texture2D, Texture2DSettings> {
         /// <summary>
         /// Builds a Texture2D content.
         /// </summary>
-        public override void Build(Stream input, Stream output, SettingsTexture2D settings) {
+        public override void Build(Stream input, Stream output, Texture2DSettings settings) {
             using (Bitmap bitmap = new Bitmap(input))
             using (BinaryWriter bw = new BinaryWriter(output)) {
                 bw.Write(bitmap.Width);
@@ -22,7 +20,7 @@ namespace Apos.Content.Compile {
                         Color c = bitmap.GetPixel(i, j);
 
                         if (settings.IsPremultipliedAlpha) {
-                            c = toPremultiplyAlpha(c);
+                            c = ToPremultiplyAlpha(c);
                         }
 
                         bw.Write(c.R);
@@ -34,7 +32,7 @@ namespace Apos.Content.Compile {
             }
         }
 
-        private Color toPremultiplyAlpha(Color c) {
+        private Color ToPremultiplyAlpha(Color c) {
             return Color.FromArgb(c.A, c.R * c.A / 255, c.G * c.A / 255, c.B * c.A / 255);
         }
     }

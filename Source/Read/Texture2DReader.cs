@@ -1,22 +1,20 @@
-using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Optional;
 
 namespace Apos.Content.Read {
     /// <summary>
     /// Reads Texture2D content.
     /// </summary>
-    public class ReadTexture2D : Reader<Texture2D> {
+    public class Texture2DReader : Reader<Texture2D> {
         /// <summary>
         /// Reads a Texture2D content.
         /// </summary>
         /// <returns>
         /// Returns something only if the content can be parsed.
         /// </returns>
-        public override Option<Texture2D> Read(Stream input, Context context) {
-            using (BinaryReader br = new BinaryReader(input)) {
+        public override Texture2D Read(Stream input, Context context) {
+            using (System.IO.BinaryReader br = new System.IO.BinaryReader(input)) {
                 int width = br.ReadInt32();
                 int height = br.ReadInt32();
 
@@ -37,7 +35,7 @@ namespace Apos.Content.Read {
 
                 texture.SetData(colors);
 
-                return Option.Some(texture);
+                return texture;
             }
         }
     }

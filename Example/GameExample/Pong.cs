@@ -1,10 +1,9 @@
+using System;
+using Apos.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Apos.Input;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
-using Optional;
-using System;
 
 namespace GameExample {
     public class Pong : GameObject {
@@ -41,7 +40,7 @@ namespace GameExample {
                     }
                 }
                 if (_reverse.Pressed()) {
-                    reverseBall();
+                    ReverseBall();
                 }
 
                 _oldBall.Position = _ball.Position;
@@ -54,12 +53,12 @@ namespace GameExample {
                 _paddle2.TargetPosition = _ball.Y + _ball.Height / 2 - _paddle2.HalfHeight;
                 _paddle2.Update();
 
-                keepWithinBounds(ref _paddle1);
-                keepWithinBounds(ref _paddle2);
+                KeepWithinBounds(ref _paddle1);
+                KeepWithinBounds(ref _paddle2);
 
-                bounceBall(ref _ball, _oldBall, ref _direction);
+                BounceBall(ref _ball, _oldBall, ref _direction);
 
-                checkScore(ref _ball);
+                CheckScore(ref _ball);
             }
         }
         public void Draw(SpriteBatch s) {
@@ -87,10 +86,10 @@ namespace GameExample {
         bool _isAI = true;
         Random _rand;
 
-        private void reverseBall() {
+        private void ReverseBall() {
             _direction = Vector2.Negate(_direction);
         }
-        private void keepWithinBounds(ref Paddle r) {
+        private void KeepWithinBounds(ref Paddle r) {
             if (r.Top < _bounds.Top) {
                 r.Y = _bounds.Y;
             }
@@ -98,7 +97,7 @@ namespace GameExample {
                 r.Y = _bounds.Bottom - r.Height;
             }
         }
-        private void bounceBall(ref RectangleF b, RectangleF oldB, ref Vector2 direction) {
+        private void BounceBall(ref RectangleF b, RectangleF oldB, ref Vector2 direction) {
             if (b.Top < _bounds.Top) {
                 float diff = _bounds.Top - b.Top;
                 b.Y += diff;
@@ -118,14 +117,10 @@ namespace GameExample {
                 Vector2 paddle1BottomRight = new Vector2(_paddle1.Right, _paddle1.Bottom + b.Height / 2);
                 Vector2 paddle1Origin = _paddle1.Center - new Vector2(50, 0);
 
-                bool found = false;
-                Vector2 intersection = Vector2.Zero;
-                findLineIntersection(a, b.Center, paddle1TopRight, paddle1BottomRight).MatchSome(v => {
-                    found = true;
-                    intersection = v;
-                });
-                if (found) {
-                    direction = Vector2.Normalize(intersection - paddle1Origin);
+                Vector2? intersection = FindLineIntersection(a, b.Center, paddle1TopRight, paddle1BottomRight);
+
+                if (intersection != null) {
+                    direction = Vector2.Normalize(intersection.Value - paddle1Origin);
                     _paddle2.Offset = _rand.Next(-(int)_paddle2.HalfHeight, (int)_paddle2.HalfHeight);
                 }
             }
@@ -135,37 +130,33 @@ namespace GameExample {
                 Vector2 paddle2BottomRight = new Vector2(_paddle2.Right, _paddle2.Bottom + b.Height / 2);
                 Vector2 paddle2Origin = _paddle2.Center + new Vector2(50, 0);
 
-                bool found = false;
-                Vector2 intersection = Vector2.Zero;
-                findLineIntersection(a, b.Center, paddle2TopRight, paddle2BottomRight).MatchSome(v => {
-                    found = true;
-                    intersection = v;
-                });
-                if (found) {
-                    direction = Vector2.Normalize(intersection - paddle2Origin);
+                Vector2? intersection = FindLineIntersection(a, b.Center, paddle2TopRight, paddle2BottomRight);
+
+                if (intersection != null) {
+                    direction = Vector2.Normalize(intersection.Value - paddle2Origin);
                     _paddle1.Offset = _rand.Next(-(int)_paddle1.HalfHeight, (int)_paddle1.HalfHeight);
                 }
             }
         }
-        private void checkScore(ref RectangleF b) {
+        private void CheckScore(ref RectangleF b) {
             if (b.Left < _bounds.Left) {
                 //paddle1 lose.
-                resetBall(ref b);
+                ResetBall(ref b);
             }
             if (b.Right > _bounds.Right) {
                 //paddle2 lose.
-                resetBall(ref b);
+                ResetBall(ref b);
             }
         }
-        private void resetBall(ref RectangleF b) {
+        private void ResetBall(ref RectangleF b) {
             b.Position = _bounds.Center - b.Size / 2;
-            reverseBall();
+            ReverseBall();
         }
         /// <summary>
         /// A line is defined by two points. The first line is an infinite line. The second line is just a line segment.
         /// A line segment means it has a beginning and an end.
         /// </summary>
-        private Option<Vector2> findLineIntersection(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
+        private Vector2? FindLineIntersection(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
             Vector2 s1 = new Vector2(p1.X - p0.X, p1.Y - p0.Y);
             Vector2 s2 = new Vector2(p3.X - p2.X, p3.Y - p2.Y);
 
@@ -182,10 +173,10 @@ namespace GameExample {
                 Point b2 = new Point((int)Math.Round(b1.X), (int)Math.Round(b1.Y));
 
                 if (a2 == b2) {
-                    return Option.Some(b1);
+                    return b1;
                 }
             }
-            return Option.None<Vector2>();
+            return null;
         }
 
         private class Paddle : GameObject {
@@ -196,28 +187,16 @@ namespace GameExample {
                 Speed = speed;
             }
 
-            public Texture2D Texture {
-                get;
-                set;
-            }
+            public Texture2D Texture { get; set; }
             public RectangleF Rectangle {
                 get => _rectangle;
                 set {
                     _rectangle = value;
                 }
             }
-            public float TargetPosition {
-                get;
-                set;
-            }
-            public float Offset {
-                get;
-                set;
-            } = 0;
-            public float Speed {
-                get;
-                set;
-            }
+            public float TargetPosition { get; set; }
+            public float Offset { get; set; } = 0;
+            public float Speed { get; set; }
             public float X {
                 get => _rectangle.X;
                 set {
