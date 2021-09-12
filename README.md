@@ -28,3 +28,4 @@ This is an attempt at writing a new content pipeline for MonoGame.
   * Make it possible to have assets named `Bullet.png` and `Bullet.wav` if you feel like it.
 * Ability to group files together into a single "archive".
 * Ability to encrypt content.
+* Only rebuild assets that change.
