@@ -9,7 +9,7 @@
     <Company>Vyne Enterprise Inc.</Company>
     <Copyright>Copyright 2021</Copyright>
     <PackageTags>content;builder;monogame</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/Apostolique/Apos.Content/master/Images/Icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Apostolique/Apos.Content/main/Images/Icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/Apostolique/Apos.Content</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Apostolique/Apos.Content</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
