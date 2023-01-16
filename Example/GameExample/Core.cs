@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using Apos.Content.Read;
 using Apos.Input;
@@ -33,7 +32,7 @@ namespace GameExample {
         }
         private string AssemblyDirectory {
             get {
-                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                string codeBase = AppDomain.CurrentDomain.BaseDirectory;
                 UriBuilder uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
